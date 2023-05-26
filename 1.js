@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         xiaoxiaoniao
 // @namespace    http://chrxw.com/
-// @version      0.1
+// @version      0.2
 // @description  测试
 // @author       我是一只小小鸟
 // @match        http://*/*
@@ -12,5 +12,5 @@
 
 (function() {
     'use strict';
-     cnosole.log('wolsdjflk');
+     cnosole.log('我才学会一点点');
 })();
