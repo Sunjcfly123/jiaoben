@@ -1,13 +1,158 @@
-</html>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>第一个网页</title>
+    <title>获取随机字符串</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font: 14px/1.2 "微软雅黑";
+        }
+
+        .main {
+            width: 498px;
+            margin: 30vh auto;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+        }
+
+        .main>*+* {
+            margin: 12px 0 0 0;
+        }
+
+        .main>*>* {
+            margin: 2px 3px;
+            padding: 2px;
+        }
+
+        .out {
+            width: 400px;
+            outline: 1px solid #333;
+        }
+
+        .button {
+            padding: 5px 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .button:hover {
+            background-color: #e7f1f7;
+        }
+    </style>
 </head>
+
 <body>
-	合开不打算
+    <div class="main">
+        <div>
+            <div></div>
+            <span class="button" id="btnSet09" onclick="btnSet_click(3)">0-9　√</span>
+            <span class="button" id="btnSetAZ" onclick="btnSet_click(1)">A-Z　√</span>
+            <span class="button" id="btnSetaz" onclick="btnSet_click(2)">a-z　√</span>
+            <span class="button" id="btnSetOther" onclick="btnSet_click(4)">!@#$%^&*　×</span>
+            <span class="button" id="btnSetLong" onclick="btnSet_click(0)">8位</span>　
+            <span class="button" id="btnStart" onclick="btnStart_click()">生成</span>
+        </div>
+
+        <div>
+            <input type="text" id="txtOut" size="64"></input>
+        </div>
+    </div>
+
+
+    <script>
+        var txtLong;
+        var txtIs_AZ;
+        var txtIs_az;
+        var txtIs_09;
+        var txtIs_Other;//!@#$%^&*
+
+        function getRanTxt(long, is_AZ, is_az, is_09, is_Other) {
+            var txtAZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var txtaz = "abcdefghijklmnopqrstuvwxyz";
+            var txt09 = "0123456789";
+            var txtOther = "!@#$%^&*";
+
+            var txt = Array();
+            if (is_AZ) txt.push(txtAZ);
+            if (is_az) txt.push(txtaz);
+            if (is_09) txt.push(txt09);
+            if (is_Other) txt.push(txtOther);
+
+
+
+            var ret = "";
+            if (txt.length != 0) {
+                for (let i = 0; i < long; i++) {
+                    var a = txt[randomNum(0, txt.length - 1)];
+                    ret += a[randomNum(0, a.length - 1)];
+                }
+            } else {
+                ret = "null";
+            }
+            return ret;
+
+
+            function randomNum(minNum, maxNum) {
+                //包含上界值和下界值
+                switch (arguments.length) {
+                    case 1:
+                        return parseInt(Math.random() * minNum + 1, 10);
+                    case 2:
+                        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+                    default:
+                        return 0;
+                }
+            }
+        }
+
+        function setVar() {
+            txtLong = document.getElementById("btnSetLong").innerText.match(/\d*/);
+            txtIs_AZ = document.getElementById("btnSetAZ").innerText.match(/√/) != null;
+            txtIs_az = document.getElementById("btnSetaz").innerText.match(/√/) != null;
+            txtIs_09 = document.getElementById("btnSet09").innerText.match(/√/) != null;
+            txtIs_Other = document.getElementById("btnSetOther").innerText.match(/√/) != null;
+        }
+
+
+        function btnStart_click() {
+            setVar();
+            var txt = getRanTxt(txtLong, txtIs_AZ, txtIs_az, txtIs_09, txtIs_Other);
+            document.getElementById("txtOut").value = txt;
+        }
+
+        function btnSet_click(a) {
+            switch (a) {
+                case 0:
+                    var list = ["8位", "16位", "32位"];
+                    var dom = document.getElementById("btnSetLong");
+                    break;
+                case 1:
+                    var list = ["A-Z　√", "A-Z　×"];
+                    var dom = document.getElementById("btnSetAZ");
+                    break;
+                case 2:
+                    var list = ["a-z　√", "a-z　×"];
+                    var dom = document.getElementById("btnSetaz");
+                    break;
+                case 3:
+                    var list = ["0-9　√", "0-9　×"];
+                    var dom = document.getElementById("btnSet09");
+                    break;
+                case 4:
+                    var list = ["!@#$%^&*　√", "!@#$%^&*　×"];
+                    var dom = document.getElementById("btnSetOther");
+                    break;
+            }
+
+            var idx = list.indexOf(dom.innerText);
+            idx++;
+            dom.innerText = list[idx % list.length];
+
+        }
+    </script>
 </body>
+
 </html>
