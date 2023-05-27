@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         xiaoxiaoniao
-// @namespace    http://chrxw.com/
+// @namespace    http://sunjcfly.com/
 // @version      0.2
 // @description  测试
 // @author       我是一只小小鸟
