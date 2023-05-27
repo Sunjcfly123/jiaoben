@@ -12,5 +12,5 @@
 
 (function() {
     'use strict';
-     cnosole.log('我才学会一点点');
+     cnosole.log('我才学会一点点，正在慢慢学习');
 })();
